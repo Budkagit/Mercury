@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mercury Community — Тэтгэлэгт Суралцагчдын Менторлах Сүлжээ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0A0F2C;--navy-mid:#141B45;--navy-light:#1E2860;--electric:#5B8DFF;--gold:#F5A623;--coral:#FF6B4A;--mint:#3ECFB2;--white:#FAFAF8;--gray-mid:#9B9B8A;}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;font-size:16px;}
+body{background:var(--navy);color:var(--white);font-family:'DM Sans',sans-serif;line-height:1.7;overflow-x:hidden;}
+a{text-decoration:none;color:inherit;}
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:var(--navy);}
+::-webkit-scrollbar-thumb{background:var(--navy-light);border-radius:2px;}
+.cursor-dot{position:fixed;width:8px;height:8px;background:var(--electric);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:opacity .3s;mix-blend-mode:screen;}
+.container{max-width:1180px;margin:0 auto;padding:0 40px;}
+.label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--electric);display:inline-block;margin-bottom:14px;}
+.label.gold{color:var(--gold);}.label.mint{color:var(--mint);}.label.coral{color:var(--coral);}
+.section-title{font-family:'Syne',sans-serif;font-size:clamp(30px,4vw,54px);font-weight:800;line-height:.98;letter-spacing:-.025em;color:var(--white);}
+.btn{display:inline-flex;align-items:center;gap:10px;font-family:'Syne',sans-serif;font-weight:700;font-size:14px;letter-spacing:.02em;padding:14px 28px;border-radius:6px;border:none;cursor:pointer;transition:all .22s cubic-bezier(.4,0,.2,1);position:relative;overflow:hidden;}
+.btn::after{content:'';position:absolute;inset:0;background:rgba(255,255,255,.1);opacity:0;transition:opacity .2s;}
+.btn:hover::after{opacity:1;}.btn:active{transform:scale(.97);}
+.btn-primary{background:var(--electric);color:var(--white);box-shadow:0 0 30px rgba(91,141,255,.35);}
+.btn-primary:hover{box-shadow:0 0 45px rgba(91,141,255,.55);transform:translateY(-2px);}
+.btn-gold{background:var(--gold);color:#1A0E00;box-shadow:0 0 30px rgba(245,166,35,.3);}
+.btn-gold:hover{box-shadow:0 0 45px rgba(245,166,35,.5);transform:translateY(-2px);}
+.btn-outline{background:transparent;color:var(--white);border:1.5px solid rgba(250,250,248,.25);}
+.btn-outline:hover{border-color:var(--electric);color:var(--electric);transform:translateY(-2px);}
+.arrow-icon{width:16px;height:16px;transition:transform .22s;}.btn:hover .arrow-icon{transform:translateX(3px);}
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(10,15,44,.88);backdrop-filter:blur(16px);border-bottom:1px solid rgba(91,141,255,.12);}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px;}
+.nav-brand{display:flex;align-items:center;gap:10px;font-family:'Syne',sans-serif;font-weight:700;font-size:15px;color:var(--white);}
+.nav-links{display:flex;gap:2px;list-style:none;}
+.nav-links a{font-size:12px;font-weight:400;color:rgba(250,250,248,.55);padding:6px 10px;border-radius:5px;transition:all .18s;white-space:nowrap;}
+.nav-links a:hover{color:var(--white);background:rgba(91,141,255,.1);}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;}
+.hamburger span{width:22px;height:1.5px;background:var(--white);border-radius:2px;transition:all .3s;}
+.mobile-nav{display:none;position:fixed;top:64px;left:0;right:0;bottom:0;background:rgba(10,15,44,.97);z-index:490;padding:40px;flex-direction:column;gap:6px;backdrop-filter:blur(16px);}
+.mobile-nav.open{display:flex;}
+.mobile-nav a{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;color:rgba(250,250,248,.6);padding:12px 0;border-bottom:1px solid rgba(91,141,255,.08);transition:color .18s;}
+.mobile-nav a:hover{color:var(--white);}
+/* HERO */
+#hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding-top:64px;}
+.hero-bg{position:absolute;inset:0;pointer-events:none;overflow:hidden;}
+.orbit{position:absolute;border-radius:50%;border:1px solid rgba(91,141,255,.1);top:50%;left:50%;transform:translate(-50%,-50%);animation:orbit-spin linear infinite;}
+.o1{width:500px;height:500px;border-color:rgba(91,141,255,.18);animation-duration:60s;}
+.o2{width:760px;height:760px;animation-duration:90s;}
+.o3{width:1060px;height:1060px;border-color:rgba(91,141,255,.06);animation-duration:140s;}
+.o4{width:1400px;height:1400px;border-color:rgba(91,141,255,.04);animation-duration:200s;animation-direction:reverse;}
+@keyframes orbit-spin{from{transform:translate(-50%,-50%) rotate(0deg)}to{transform:translate(-50%,-50%) rotate(360deg)}}
+.sat-container{position:absolute;border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%);animation:orbit-spin linear infinite;pointer-events:none;}
+.sat-container.s1{width:500px;height:500px;animation-duration:60s;}
+.sat-container.s2{width:760px;height:760px;animation-duration:90s;animation-direction:reverse;}
+.sat-dot{position:absolute;border-radius:50%;top:0;left:50%;transform:translate(-50%,-50%);}
+.sd1{width:8px;height:8px;background:var(--gold);box-shadow:0 0 14px rgba(245,166,35,.7);}
+.sd2{width:5px;height:5px;background:var(--mint);box-shadow:0 0 10px rgba(62,207,178,.6);}
+.sd3{width:6px;height:6px;background:var(--electric);box-shadow:0 0 12px rgba(91,141,255,.6);top:100%;}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;min-height:calc(100vh - 64px);padding:80px 0;}
+.hero-eyebrow{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:var(--electric);margin-bottom:24px;opacity:0;animation:fade-up .7s .2s forwards;}
+.hero-title{font-family:'Syne',sans-serif;font-size:clamp(40px,6vw,82px);font-weight:800;line-height:.95;letter-spacing:-.03em;margin-bottom:28px;opacity:0;animation:fade-up .7s .35s forwards;}
+.line-electric{color:var(--electric);}.line-gold{-webkit-text-stroke:1px var(--gold);color:transparent;}
+.hero-sub{font-size:16px;font-weight:300;color:rgba(250,250,248,.6);max-width:480px;line-height:1.8;margin-bottom:40px;opacity:0;animation:fade-up .7s .5s forwards;}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap;opacity:0;animation:fade-up .7s .65s forwards;}
+.hero-stats{display:flex;gap:32px;margin-top:52px;opacity:0;animation:fade-up .7s .8s forwards;}
+.hero-stat-num{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;line-height:1;}
+.hero-stat-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--gray-mid);margin-top:4px;}
+.hero-visual{display:flex;align-items:center;justify-content:center;position:relative;opacity:0;animation:fade-in .9s .6s forwards;}
+.globe-wrap{position:relative;width:400px;height:400px;}
+.globe-ring{position:absolute;border-radius:50%;border:1.5px solid rgba(91,141,255,.2);top:50%;left:50%;transform:translate(-50%,-50%);}
+.gr1{width:400px;height:400px;border-color:rgba(91,141,255,.12);}
+.gr2{width:270px;height:270px;border-color:rgba(91,141,255,.25);}
+.gr3{width:160px;height:160px;border-color:rgba(91,141,255,.4);}
+.globe-core{position:absolute;width:76px;height:76px;background:var(--electric);border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%);box-shadow:0 0 60px rgba(91,141,255,.5),0 0 120px rgba(91,141,255,.2);animation:pulse-glow 3s ease-in-out infinite;}
+.globe-core-inner{position:absolute;inset:12px;background:rgba(255,255,255,.15);border-radius:50%;}
+@keyframes pulse-glow{0%,100%{box-shadow:0 0 60px rgba(91,141,255,.4),0 0 120px rgba(91,141,255,.15)}50%{box-shadow:0 0 80px rgba(91,141,255,.65),0 0 160px rgba(91,141,255,.25)}}
+.country-pin{position:absolute;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:default;}
+.pin-dot{width:10px;height:10px;border-radius:50%;border:2px solid var(--white);transition:transform .2s;}
+.country-pin:hover .pin-dot{transform:scale(1.5);}
+.pin-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--white);background:rgba(10,15,44,.85);border:1px solid rgba(91,141,255,.2);padding:3px 8px;border-radius:3px;white-space:nowrap;opacity:0;transition:opacity .2s;}
+.country-pin:hover .pin-label{opacity:1;}
+.pin-cn{top:20%;left:68%;}.pin-kr{top:30%;left:73%;}.pin-jp{top:24%;left:81%;}.pin-ru{top:12%;left:40%;}
+.scroll-hint{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;opacity:.4;animation:bounce 2s ease-in-out infinite;}
+.scroll-hint span{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--gray-mid);}
+@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(6px)}}
+@keyframes fade-up{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fade-in{from{opacity:0}to{opacity:1}}
+/* SECTIONS */
+.section{padding:120px 0;}.section.alt-bg{background:rgba(255,255,255,.022);}
+/* ABOUT */
+.about-grid{display:grid;grid-template-columns:5fr 7fr;gap:80px;align-items:start;margin-top:60px;}
+.about-mission{font-family:'Syne',sans-serif;font-size:20px;font-weight:500;line-height:1.5;color:var(--white);margin-bottom:28px;}
+.about-mission em{color:var(--electric);font-style:normal;}
+.about-body{font-size:15px;color:rgba(250,250,248,.6);line-height:1.85;margin-bottom:20px;}
+.about-cards{display:grid;grid-template-columns:1fr 1fr;gap:2px;}
+.about-card{background:var(--navy-mid);padding:28px 24px;border-left:2px solid transparent;transition:border-color .2s,background .2s;}
+.about-card:hover{border-color:var(--electric);background:rgba(20,27,69,.8);}
+.about-card-icon{width:36px;height:36px;margin-bottom:14px;background:rgba(91,141,255,.1);border-radius:8px;display:flex;align-items:center;justify-content:center;}
+.about-card h4{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;margin-bottom:6px;}
+.about-card p{font-size:13px;color:rgba(250,250,248,.5);line-height:1.65;}
+.for-who{margin-top:28px;background:rgba(91,141,255,.06);border:1px solid rgba(91,141,255,.15);border-radius:8px;padding:24px;}
+.for-who h4{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--electric);margin-bottom:14px;}
+.for-who-list{list-style:none;display:flex;flex-direction:column;gap:9px;}
+.for-who-list li{font-size:14px;color:rgba(250,250,248,.65);display:flex;align-items:center;gap:10px;}
+.for-who-list li::before{content:'';width:5px;height:5px;background:var(--electric);border-radius:50%;flex-shrink:0;}
+/* SCHOLARSHIPS */
+.schol-tabs{display:flex;gap:2px;margin-bottom:48px;background:var(--navy-mid);padding:4px;border-radius:8px;width:fit-content;flex-wrap:wrap;}
+.schol-tab{font-family:'Syne',sans-serif;font-size:13px;font-weight:600;padding:10px 20px;border-radius:6px;cursor:pointer;color:rgba(250,250,248,.45);transition:all .2s;border:none;background:transparent;}
+.schol-tab.active{background:var(--electric);color:var(--white);}.schol-tab:hover:not(.active){color:var(--white);}
+.schol-panel{display:none;}.schol-panel.active{display:grid;grid-template-columns:1fr 1fr;gap:2px;}
+.schol-main{background:var(--navy-mid);padding:52px;}.schol-flag{font-size:40px;margin-bottom:20px;}
+.schol-name{font-family:'Syne',sans-serif;font-size:24px;font-weight:800;letter-spacing:-.02em;margin-bottom:6px;}
+.schol-sub{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--gray-mid);margin-bottom:24px;}
+.schol-desc{font-size:15px;color:rgba(250,250,248,.65);line-height:1.8;margin-bottom:32px;}
+.schol-details{background:#0D1235;padding:52px;display:flex;flex-direction:column;gap:32px;}
+.benefit-title{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--electric);margin-bottom:14px;}
+.benefit-item{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid rgba(91,141,255,.07);}
+.benefit-item:last-child{border-bottom:none;}
+.benefit-check{width:18px;height:18px;flex-shrink:0;background:rgba(62,207,178,.12);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-top:2px;}
+.benefit-check svg{width:10px;height:10px;}
+.benefit-item span{font-size:14px;color:rgba(250,250,248,.7);line-height:1.55;}
+/* MENTORS */
+.mentors-intro{max-width:600px;margin-bottom:60px;}
+.mentors-intro p{font-size:16px;color:rgba(250,250,248,.6);line-height:1.8;margin-top:20px;}
+.mentors-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;}
+.mentor-card{background:var(--navy-mid);overflow:hidden;position:relative;cursor:default;transition:transform .25s cubic-bezier(.4,0,.2,1);}
+.mentor-card:hover{transform:translateY(-4px);z-index:2;}
+.mentor-img{width:100%;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;height:180px;}
+.mentor-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 40%,var(--navy-mid) 100%);}
+.mentor-flag{position:absolute;top:12px;right:12px;font-size:20px;z-index:1;}
+.mentor-body{padding:20px 20px 24px;}
+.mentor-name{font-family:'Syne',sans-serif;font-size:17px;font-weight:700;margin-bottom:2px;}
+.mentor-uni{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.1em;color:var(--electric);text-transform:uppercase;margin-bottom:10px;}
+.mentor-bio{font-size:13px;color:rgba(250,250,248,.5);line-height:1.6;}
+.mentor-tag{display:inline-block;margin-top:12px;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.15em;text-transform:uppercase;background:rgba(91,141,255,.1);color:var(--electric);padding:3px 8px;border-radius:3px;}
+/* ACHIEVEMENTS */
+.achieve-header-wrap{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end;margin-bottom:64px;}
+.achieve-header-wrap p{font-size:16px;color:rgba(250,250,248,.55);line-height:1.8;}
+.achieve-top{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-bottom:2px;}
+.achieve-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;}
+.achieve-card{background:var(--navy-mid);padding:32px 28px;position:relative;overflow:hidden;border-top:2px solid transparent;transition:all .25s cubic-bezier(.4,0,.2,1);}
+.achieve-card:hover{transform:translateY(-3px);}
+.achieve-card.cn{border-top-color:var(--gold);}.achieve-card.kr{border-top-color:var(--electric);}.achieve-card.jp{border-top-color:var(--coral);}.achieve-card.ru{border-top-color:var(--mint);}
+.achieve-header{display:flex;align-items:center;gap:14px;margin-bottom:16px;}
+.achieve-avatar{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:16px;flex-shrink:0;}
+.achieve-name{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;margin-bottom:2px;}
+.achieve-detail{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--gray-mid);}
+.achieve-quote{font-size:13px;color:rgba(250,250,248,.65);line-height:1.75;font-style:italic;font-weight:300;margin-bottom:16px;border-left:2px solid rgba(91,141,255,.2);padding-left:14px;}
+.achieve-result{display:flex;align-items:center;gap:8px;background:rgba(62,207,178,.06);border:1px solid rgba(62,207,178,.15);border-radius:4px;padding:8px 12px;}
+.achieve-result-icon{font-size:14px;flex-shrink:0;}
+.achieve-result-text{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--mint);}
+.cohort-band{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:2px;}
+.cohort-card{background:var(--navy-mid);padding:28px 24px;}
+.cohort-year{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--gray-mid);margin-bottom:8px;}
+.cohort-num{font-family:'Syne',sans-serif;font-size:36px;font-weight:800;line-height:1;margin-bottom:6px;}
+.cohort-desc{font-size:13px;color:rgba(250,250,248,.5);line-height:1.55;}
+/* PROGRAMS */
+.programs-header{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end;margin-bottom:60px;}
+.programs-header p{font-size:15px;color:rgba(250,250,248,.55);line-height:1.8;}
+.programs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;}
+.program-card{background:var(--navy-mid);padding:36px 32px;position:relative;overflow:hidden;border-top:2px solid transparent;transition:all .25s cubic-bezier(.4,0,.2,1);cursor:default;}
+.program-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(91,141,255,.05) 0%,transparent 60%);opacity:0;transition:opacity .3s;}
+.program-card:hover{transform:translateY(-3px);border-top-color:var(--electric);}.program-card:hover::before{opacity:1;}
+.program-num{font-family:'Space Mono',monospace;font-size:11px;color:rgba(250,250,248,.2);letter-spacing:.1em;margin-bottom:20px;}
+.program-icon-wrap{width:48px;height:48px;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;font-size:22px;}
+.program-codename{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.22em;text-transform:uppercase;margin-bottom:6px;}
+.program-name{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;letter-spacing:-.01em;margin-bottom:12px;}
+.program-desc{font-size:13px;color:rgba(250,250,248,.5);line-height:1.7;margin-bottom:16px;}
+.program-features{list-style:none;display:flex;flex-direction:column;gap:6px;}
+.program-features li{font-size:12px;color:rgba(250,250,248,.4);display:flex;gap:8px;align-items:center;}
+.program-features li::before{content:'→';color:var(--electric);font-size:10px;}
+/* APPLY */
+#apply{position:relative;overflow:hidden;}
+.apply-bg{position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 50% 50%,rgba(91,141,255,.08) 0%,transparent 70%);pointer-events:none;}
+.apply-inner{text-align:center;max-width:720px;margin:0 auto;position:relative;z-index:1;}
+.apply-title{font-family:'Syne',sans-serif;font-size:clamp(36px,5vw,66px);font-weight:800;line-height:.97;letter-spacing:-.03em;margin-bottom:24px;}
+.apply-title span{color:var(--electric);}
+.apply-sub{font-size:17px;color:rgba(250,250,248,.55);line-height:1.75;margin-bottom:44px;}
+.apply-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:40px;}
+.apply-note{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:rgba(250,250,248,.3);}
+.apply-steps{display:flex;justify-content:center;gap:0;margin-top:60px;}
+.apply-step{display:flex;flex-direction:column;align-items:center;flex:1;max-width:160px;position:relative;}
+.apply-step:not(:last-child)::after{content:'';position:absolute;top:18px;left:calc(50% + 18px);width:calc(100% - 36px);height:1px;background:linear-gradient(90deg,rgba(91,141,255,.4),rgba(91,141,255,.1));}
+.step-num{width:36px;height:36px;border-radius:50%;background:var(--electric);color:var(--white);font-family:'Syne',sans-serif;font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;flex-shrink:0;}
+.step-label{font-family:'Syne',sans-serif;font-size:12px;font-weight:600;text-align:center;color:rgba(250,250,248,.7);line-height:1.4;}
+/* TESTIMONIALS */
+.testimonials-header{text-align:center;margin-bottom:60px;}
+.testimonials-header p{font-size:16px;color:rgba(250,250,248,.5);margin-top:16px;}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-bottom:2px;}
+.testi-card{background:var(--navy-mid);padding:36px 32px;position:relative;transition:transform .2s;}
+.testi-card:hover{transform:translateY(-3px);}
+.testi-quote-mark{font-family:'Syne',sans-serif;font-size:64px;font-weight:800;color:var(--electric);opacity:.2;line-height:.7;margin-bottom:16px;}
+.testi-text{font-size:14px;color:rgba(250,250,248,.72);line-height:1.8;margin-bottom:28px;font-style:italic;font-weight:300;}
+.testi-author{display:flex;align-items:center;gap:12px;}
+.testi-avatar{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:700;font-size:14px;flex-shrink:0;}
+.testi-name{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;}
+.testi-detail{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--gray-mid);margin-top:2px;}
+.testi-outcome{margin-top:12px;background:rgba(62,207,178,.08);border:1px solid rgba(62,207,178,.2);border-radius:4px;padding:6px 12px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--mint);display:inline-block;}
+.stats-band{background:var(--navy-mid);padding:56px;display:grid;grid-template-columns:repeat(4,1fr);gap:2px;}
+.stat-col{text-align:center;padding:0 20px;border-right:1px solid rgba(91,141,255,.1);}
+.stat-col:last-child{border-right:none;}
+.stat-big{font-family:'Syne',sans-serif;font-size:clamp(28px,3.5vw,50px);font-weight:800;line-height:1;margin-bottom:6px;}
+.stat-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--gray-mid);}
+/* FOOTER */
+footer{background:#060A1E;border-top:1px solid rgba(91,141,255,.1);}
+.footer-top{padding:72px 0 56px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:60px;}
+.footer-brand-logo{display:flex;align-items:center;gap:10px;font-family:'Syne',sans-serif;font-weight:700;font-size:16px;margin-bottom:16px;}
+.footer-brand-desc{font-size:14px;color:rgba(250,250,248,.45);line-height:1.75;max-width:300px;margin-bottom:24px;}
+.social-links{display:flex;gap:10px;}
+.social-btn{width:36px;height:36px;background:rgba(91,141,255,.1);border:1px solid rgba(91,141,255,.2);border-radius:6px;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+.social-btn:hover{background:var(--electric);border-color:var(--electric);}
+.social-btn svg{width:15px;height:15px;}
+.footer-col h5{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;margin-bottom:20px;color:rgba(250,250,248,.9);}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.footer-col ul li a{font-size:13px;color:rgba(250,250,248,.4);transition:color .18s;}
+.footer-col ul li a:hover{color:var(--electric);}
+.footer-bottom{border-top:1px solid rgba(91,141,255,.08);padding:24px 0;display:flex;justify-content:space-between;align-items:center;}
+.footer-bottom p{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:rgba(250,250,248,.25);}
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .65s cubic-bezier(.4,0,.2,1),transform .65s cubic-bezier(.4,0,.2,1);}
+.reveal.visible{opacity:1;transform:translateY(0);}
+.reveal-delay-1{transition-delay:.1s;}.reveal-delay-2{transition-delay:.2s;}.reveal-delay-3{transition-delay:.3s;}.reveal-delay-4{transition-delay:.4s;}
+/* RESPONSIVE */
+@media(max-width:1024px){
+  .mentors-grid{grid-template-columns:repeat(2,1fr);}
+  .programs-grid{grid-template-columns:repeat(2,1fr);}
+  .footer-top{grid-template-columns:1fr 1fr;gap:40px;}
+  .achieve-header-wrap{grid-template-columns:1fr;gap:20px;}
+  .achieve-grid{grid-template-columns:repeat(2,1fr);}
+  .cohort-band{grid-template-columns:repeat(2,1fr);}
+}
+@media(max-width:768px){
+  .container{padding:0 20px;}
+  .nav-links,.nav-cta{display:none!important;}
+  .hamburger{display:flex;}
+  .hero-grid{grid-template-columns:1fr;gap:40px;padding:60px 0;}
+  .hero-visual{display:none;}
+  .hero-stats{gap:16px;flex-wrap:wrap;}
+  .about-grid{grid-template-columns:1fr;gap:40px;}
+  .about-cards{grid-template-columns:1fr;}
+  .schol-panel.active{grid-template-columns:1fr;}
+  .mentors-grid{grid-template-columns:1fr 1fr;}
+  .programs-header{grid-template-columns:1fr;gap:20px;}
+  .programs-grid{grid-template-columns:1fr;}
+  .achieve-top{grid-template-columns:1fr;}
+  .achieve-grid{grid-template-columns:1fr;}
+  .cohort-band{grid-template-columns:repeat(2,1fr);}
+  .testi-grid{grid-template-columns:1fr;}
+  .stats-band{grid-template-columns:repeat(2,1fr);}
+  .stat-col{border-right:none;border-bottom:1px solid rgba(91,141,255,.1);padding:20px;}
+  .apply-steps{flex-direction:column;gap:24px;align-items:center;}
+  .apply-step::after{display:none;}
+  .footer-top{grid-template-columns:1fr;gap:32px;}
+  .footer-bottom{flex-direction:column;gap:8px;text-align:center;}
+  .section{padding:80px 0;}
+}
+@media(max-width:480px){
+  .mentors-grid{grid-template-columns:1fr;}
+  .stats-band{grid-template-columns:1fr;}
+  .schol-main,.schol-details{padding:28px 20px;}
+  .hero-actions{flex-direction:column;}
+}
+</style>
+</head>
+<body>
+
+<div class="cursor-dot" id="cursorDot"></div>
+
+<div class="mobile-nav" id="mobileNav">
+  <a href="#about" onclick="closeMN()">Бидний тухай</a>
+  <a href="#scholarships" onclick="closeMN()">Тэтгэлгүүд</a>
+  <a href="#mentors" onclick="closeMN()">Менторууд</a>
+  <a href="#achievements" onclick="closeMN()">Амжилтууд</a>
+  <a href="#programs" onclick="closeMN()">Хөтөлбөрүүд</a>
+  <a href="#apply" onclick="closeMN()">Бүртгүүлэх</a>
+  <a href="#community" onclick="closeMN()">Хамт олон</a>
+</div>
+
+<nav>
+  <div class="container nav-inner">
+    <a href="#" class="nav-brand">
+      <svg width="26" height="26" viewBox="0 0 26 26" fill="none"><circle cx="13" cy="13" r="12" stroke="#5B8DFF" stroke-width="1.2" fill="none" opacity="0.35"/><circle cx="13" cy="13" r="7.5" stroke="#5B8DFF" stroke-width="1.2" fill="none" opacity="0.6"/><circle cx="13" cy="13" r="3" fill="#5B8DFF"/><circle cx="22.5" cy="7" r="1.8" fill="#F5A623"/></svg>
+      Mercury Community
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about">Бидний тухай</a></li>
+      <li><a href="#scholarships">Тэтгэлгүүд</a></li>
+      <li><a href="#mentors">Менторууд</a></li>
+      <li><a href="#achievements">Амжилтууд</a></li>
+      <li><a href="#programs">Хөтөлбөрүүд</a></li>
+      <li><a href="#community">Хамт олон</a></li>
+    </ul>
+    <a href="https://forms.google.com" target="_blank" class="btn btn-primary nav-cta" style="padding:10px 20px;font-size:12px;">Бүртгүүлэх <svg class="arrow-icon" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <div class="hamburger" id="hamburger" onclick="toggleMN()"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg">
+    <div class="orbit o1"></div><div class="orbit o2"></div><div class="orbit o3"></div><div class="orbit o4"></div>
+    <div class="sat-container s1"><div class="sat-dot sd1"></div><div class="sat-dot sd3"></div></div>
+    <div class="sat-container s2"><div class="sat-dot sd2"></div></div>
+  </div>
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <div class="hero-eyebrow">Дэлхийн Тэтгэлэгт Суралцагчдын Менторлах Сүлжээ</div>
+        <h1 class="hero-title">Дэлхийн<br><span class="line-electric">Тэргүүний</span><br><span class="line-gold">Боловсрол.</span></h1>
+        <p class="hero-sub">Бодит оюутнууд. Бодит тэтгэлгүүд. Хятад, Солонгос, Япон, Орос — Mercury Community танд яг тэнд хүрсэн менторуудтай холбоно.</p>
+        <div class="hero-actions">
+          <a href="https://forms.google.com" target="_blank" class="btn btn-primary">Аяллаа эхлүүлэх <svg class="arrow-icon" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <a href="#about" class="btn btn-outline">Дэлгэрэнгүй</a>
+        </div>
+        <div class="hero-stats">
+          <div><div class="hero-stat-num" style="color:var(--electric);">4</div><div class="hero-stat-label">Улс орон</div></div>
+          <div style="width:1px;background:rgba(91,141,255,.2);"></div>
+          <div><div class="hero-stat-num" style="color:var(--gold);">200+</div><div class="hero-stat-label">Менторууд</div></div>
+          <div style="width:1px;background:rgba(91,141,255,.2);"></div>
+          <div><div class="hero-stat-num" style="color:var(--mint);">94%</div><div class="hero-stat-label">Амжилтын хувь</div></div>
+          <div style="width:1px;background:rgba(91,141,255,.2);"></div>
+          <div><div class="hero-stat-num">Үнэгүй</div><div class="hero-stat-label">Хамт олон</div></div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="globe-wrap">
+          <div class="globe-ring gr1"></div><div class="globe-ring gr2"></div><div class="globe-ring gr3"></div>
+          <div class="globe-core"><div class="globe-core-inner"></div></div>
+          <div class="country-pin pin-cn"><div class="pin-dot" style="background:#F5A623;box-shadow:0 0 10px rgba(245,166,35,.6);"></div><div class="pin-label">🇨🇳 Хятад</div></div>
+          <div class="country-pin pin-kr"><div class="pin-dot" style="background:#5B8DFF;box-shadow:0 0 10px rgba(91,141,255,.6);"></div><div class="pin-label">🇰🇷 Солонгос</div></div>
+          <div class="country-pin pin-jp"><div class="pin-dot" style="background:#FF6B4A;box-shadow:0 0 10px rgba(255,107,74,.6);"></div><div class="pin-label">🇯🇵 Япон</div></div>
+          <div class="country-pin pin-ru"><div class="pin-dot" style="background:#3ECFB2;box-shadow:0 0 10px rgba(62,207,178,.6);"></div><div class="pin-label">🇷🇺 Орос</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint"><span>Доош гүйлгэх</span><svg width="12" height="20" viewBox="0 0 12 20" fill="none"><path d="M6 1v14M1 11l5 7 5-7" stroke="rgba(250,250,248,.4)" stroke-width="1.2" stroke-linecap="round"/></svg></div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="section alt-bg">
+  <div class="container">
+    <span class="label reveal">01 — Бидний тухай</span>
+    <h2 class="section-title reveal reveal-delay-1">Mercury Community<br>гэж юу вэ?</h2>
+    <div class="about-grid">
+      <div class="reveal reveal-delay-2">
+        <p class="about-mission">Бид <em>хүсэл мөрөөдөлтэй бүх оюутнуудад</em> тэтгэлэг авсан хүмүүсийн мэдлэгт хүрэх боломжийг олгоно — зөвхөн аз тохиосон хэдэнд биш.</p>
+        <p class="about-body">Mercury Community нь Ази болон Орост засгийн газрын тэтгэлгээр суралцаж буй оюутнуудын үүсгэн байгуулсан — уг үйл явц хэр төвөгтэй болохыг биечлэн мэддэг. Бид таны нөхцөл байдалд яг тохирсон, бодит туршлагатай менторуудтай холбодог ижил үе дэх хүмүүсийн сүлжээг бий болгосон.</p>
+        <p class="about-body">Манай хамт олон голчлон онлайн горимоор ажиллаж, жилд нэг-хоёр удаа биечлэн уулзалт, сургалт зохион байгуулдаг.</p>
+        <div class="for-who">
+          <h4>Энэ хөтөлбөр танд тохирно, хэрэв та…</h4>
+          <ul class="for-who-list">
+            <li>Гадаадад суралцахыг мөрөөддөг ахлах сургуулийн сурагч бол</li>
+            <li>Засгийн газрын тэтгэлэгт өргөдөл гаргахад бэлтгэж буй бол</li>
+            <li>Ерөнхий зөвлөмж биш, бодит чиглэлийг хүсэж буй бол</li>
+            <li>Ямар улс, их сургуулийг сонгохоо мэдэхгүй бол</li>
+            <li>Өргөдлөө ялгарахуйц болгохыг хүсэж буй бол</li>
+          </ul>
+        </div>
+      </div>
+      <div class="about-cards reveal reveal-delay-3">
+        <div class="about-card"><div class="about-card-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" stroke="#5B8DFF" stroke-width="1.2" fill="none"/><circle cx="9" cy="9" r="4.5" stroke="#5B8DFF" stroke-width="1.2" fill="none"/><circle cx="9" cy="9" r="2" fill="#5B8DFF"/></svg></div><h4>Эрхэм зорилго</h4><p>Ирээдүйг хүсэж буй бүх оюутныг аль хэдийн тэнд хүрсэн менторуудтай холбосноор дэлхийн тэргүүний боловсролыг бүгдэд хүртээмжтэй болгох.</p></div>
+        <div class="about-card"><div class="about-card-icon" style="background:rgba(245,166,35,.1);"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2l1.8 5.4H17l-4.9 3.6L13.9 16 9 12.4 4.1 16l1.8-5L2 7.4h6.2L9 2z" stroke="#F5A623" stroke-width="1.2" fill="none" stroke-linejoin="round"/></svg></div><h4>Алсын харааа</h4><p>Олон улсын сэтгэлгээтэй, зөв бэлтгэсний ачаар — азаар биш — тэтгэлэг авдаг оюутнуудын үеийг бий болгох.</p></div>
+        <div class="about-card"><div class="about-card-icon" style="background:rgba(62,207,178,.1);"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2C5.13 2 2 5.13 2 9s3.13 7 7 7 7-3.13 7-7M12 2c0 3.87-3.13 7-7 7" stroke="#3ECFB2" stroke-width="1.2" fill="none" stroke-linecap="round"/></svg></div><h4>Арга барил</h4><p>Бидний менторууд онолын мэдлэгтэй зөвлөхүүд биш — тэтгэлгийн оюутнуудаас бодит туршлага дамжуулдаг.</p></div>
+        <div class="about-card"><div class="about-card-icon" style="background:rgba(255,107,74,.1);"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="3" y="8" width="12" height="8" rx="1.5" stroke="#FF6B4A" stroke-width="1.2" fill="none"/><path d="M6 8V5.5a3 3 0 016 0V8" stroke="#FF6B4A" stroke-width="1.2" fill="none" stroke-linecap="round"/></svg></div><h4>Хамт олон</h4><p>Нэгдэхэд үнэгүй. Таны амжилтыг сонирхсон менторуудаар дэмжигдсэн — учир нь тэд ч тэнд байсан.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCHOLARSHIPS -->
+<section id="scholarships" class="section">
+  <div class="container">
+    <span class="label reveal">02 — Тэтгэлгүүд</span>
+    <h2 class="section-title reveal reveal-delay-1">Бүрэн Санхүүжилттэй<br>Боломжууд</h2>
+    <p style="margin-top:16px;font-size:15px;color:rgba(250,250,248,.5);max-width:560px;margin-bottom:48px;" class="reveal reveal-delay-2">Сургалтын төлбөр, орон сууц, сарын тэтгэмжийг бүрэн хамардаг засгийн газрын тэтгэлгүүд.</p>
+    <div class="schol-tabs reveal">
+      <button class="schol-tab active" onclick="switchSchol(this,'cn')">🇨🇳 Хятад</button>
+      <button class="schol-tab" onclick="switchSchol(this,'kr')">🇰🇷 Солонгос</button>
+      <button class="schol-tab" onclick="switchSchol(this,'jp')">🇯🇵 Япон</button>
+      <button class="schol-tab" onclick="switchSchol(this,'ru')">🇷🇺 Орос</button>
+    </div>
+    <div class="schol-panel active" id="schol-cn">
+      <div class="schol-main"><div class="schol-flag">🇨🇳</div><div class="schol-name">Хятадын Засгийн Газрын Тэтгэлэг</div><div class="schol-sub">CSC — China Scholarship Council</div><p class="schol-desc">Дэлхийн хамгийн том засгийн газрын тэтгэлгийн хөтөлбөрүүдийн нэг болох CSC тэтгэлэг нь хятадын тэргүүний их сургуулиудад бакалавр, магистр, докторын зэрэг эзэмших бүрэн санхүүжилт олгодог.</p><a href="https://forms.google.com" target="_blank" class="btn btn-primary">Mercury-р өргөдөл гаргах <svg class="arrow-icon" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+      <div class="schol-details"><div><div class="benefit-title">Үндсэн давуу талууд</div><div class="benefit-item"><div class="benefit-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#3ECFB2" stroke-width="1.5" stroke-linecap="round"/></svg></div><span>Бүх хэлбэрийн сургалтын төлбөрийг бүрэн хамардаг</span></div><div class="benefit-item"><div class="benefit-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#3ECFB2" stroke-width="1.5" stroke-linecap="round"/></svg></div><span>Их сургуулийн дотуур байр үнэгүй</span></div><div class="benefit-item"><div class="benefit-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#3ECFB2" stroke-width="1.5" stroke-linecap="round"/></svg></div><span>Сарын тэтгэмж: ¥2,500–3,500</span></div><div class="benefit-item"><div class="benefit-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#3ECFB2" stroke-width="1.5" stroke-linecap="round"/></svg></div><span>Эрүүл мэндийн даатгал бүрэн хамрагдана</span></div><div class="benefit-item"><div class="benefit-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#3ECFB2" stroke-width="1.5" stroke-linecap="round"/></svg></div><span>1 жилийн Хятад хэлний бэлтгэл сургалт үнэгүй</span></div></div><div><div class="benefit-title">Хэн өргөдөл гаргаж болох вэ?</div><div class="benefit-item"><div class="benefit-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#5B8DFF" stroke-width="1.5" stroke-linecap="round"/></svg></div><span>Хятадын иргэн бус, 25 хүрээгүй (бакалавр)</span></div><div class="benefit-item"><div class="benefit-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#5B8DFF" stroke-width="1.5" stroke-linecap="round"/></svg></div><span>Бүрэн дунд боловсролын дипломтой</span></div><div class="benefit-item"><div class="benefit-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#5B8DFF" stroke-width="1.5" stroke-linecap="round"/></svg></div><span>Хичээлийн дүн сайн байх шаардлагатай</span></div></div></div>
+    </div>
+    <div class="schol-panel" id="schol-kr">
+      <div class="schol-main"><div class="schol-flag">🇰🇷</div><div class="schol-name">Солонгосын Засгийн Газрын Тэтгэлэг</div><div class="schol-sub">NIIED — Global Korea Scholarship (GKS)</div><p class="schol-desc">GKS бол Өмнөд Солонгосын гадаадын оюутнуудад зориулсан тэргүүний тэтгэлгийн хөтөлбөр юм. Солонгосын нэр хүндтэй их сургуулиудад бакалавр болон аспирантурын зэрэг бүрэн санхүүжилттэйгээр олгодог.</p><a href="https://forms.google.com" target="_blank" class="btn btn-primary">Mercury-р өргөдөл гаргах <svg class="arrow-icon" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+      <div class="schol-details"><div><div class="benefit-title">Үндсэн давуу талууд</div><div class="benefit-item"><div class="benefit-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#3ECFB2" stroke-width="1.5" stroke-linecap="round"/></svg></div><span>Сургалтын бүх төлбөрийг бүрэн хамардаг</span></div><div class="benefit-item"><div class="benefit-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#3ECFB2" stroke-width="1.5" stroke-linecap="round"/></svg></div><span>Сарын тэтгэмж: ₩900,000 (бакалавр) / ₩1,000,000+ (аспирантур)</span></div><div class="benefit-item"><div class="benefit-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#3ECFB2" stroke-width="1.5" stroke-linecap="round"/></svg></div><span>Харь улс руу болон буцах нислэгийн тасалбар</span></div><div class="benefit-item"><div class="benefit-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#3ECFB2" stroke-width="1.5" stroke-linecap="round"/></svg></div><span>1 жилийн Солонгос хэлний сургалт оруулсан</span></div></div><div><div class="benefit-title">Хэн өргөдөл гаргаж болох вэ?</div><div class="benefit-item"><div class="benefit-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#5B8DFF" stroke-width="1.5" stroke-linecap="round"/></svg></div><span>Солонгосын иргэн бус, 25 хүрээгүй (бакалавр)</span></div><div class="benefit-item"><div class="benefit-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#5B8DFF" stroke-width="1.5" stroke-linecap="round"/></svg></div><span>ГПА 2.64/4.0 буюу түүнээс дээш байхыг зөвлөдөг</span></div><div class="benefit-item"><div class="benefit-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#5B8DFF" stroke-width="1.5" stroke-linecap="round"/></svg></div><span>Эрүүл мэндийн үзлэгт тэнцэх шаардлагатай</span></div></div></div>
+    </div>
+    <div class="schol-panel" id="schol-jp">
+      <div class="schol-main"><div class="schol-flag">🇯🇵</div><div class="schol-name">Японы Засгийн Газрын Тэтгэлэг</div><div class="schol-sub">MEXT — Боловсролын Яамны Тэтгэлэг</div><p class="schol-desc">MEXT тэтгэлэг бол Японы гадаадын оюутнуудад зориулсан хамгийн нэр хүндтэй тэтгэлэг юм. Бүрэн санхүүжилттэй, өгөөмөр тэтгэмжтэй бөгөөд бакалавр болон судалгааны оюутнуудад Японы тэргүүний их сургуулиудыг нэвтрэх боломж олгодог.</p><a href="https://forms.google.com" target="_blank" class="btn btn-primary">Mercury-р өргөдөл гаргах <svg class="arrow-icon" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+      <div class="schol-details"><div><div class="benefit-title">Үндсэн давуу талууд</div><div class="benefit-item"><div class="benefit-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#3ECFB2" stroke-width="1.5" stroke-linecap="round"/></svg></div><span>Шалгалтын хураамж зэрэг бүх сургалтын төлбөр чөлөөлөгдөнө</span></div><div class="benefit-item"><div class="benefit-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#3ECFB2" stroke-width="1.5" stroke-linecap="round"/></svg></div><span>Сарын тэтгэмж: ¥117,000–145,000</span></div><div class="benefit-item"><div class="benefit-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#3ECFB2" stroke-width="1.5" stroke-linecap="round"/></svg></div><span>Харь улс руу болон буцах нислэгийн тасалбар</span></div><div class="benefit-item"><div class="benefit-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#3ECFB2" stroke-width="1.5" stroke-linecap="round"/></svg></div><span>Хөтөлбөр эхлэхийн өмнө Япон хэлний сургалт</span></div></div><div><div class="benefit-title">Хэн өргөдөл гаргаж болох вэ?</div><div class="benefit-item"><div class="benefit-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#5B8DFF" stroke-width="1.5" stroke-linecap="round"/></svg></div><span>Япон улстай дипломат харилцаатай улсын иргэд</span></div><div class="benefit-item"><div class="benefit-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#5B8DFF" stroke-width="1.5" stroke-linecap="round"/></svg></div><span>Бакалаврын чиглэлд 25 хүрээгүй байх</span></div><div class="benefit-item"><div class="benefit-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#5B8DFF" stroke-width="1.5" stroke-linecap="round"/></svg></div><span>Хүчтэй хичээлийн дүн болон урам зориг захидал шаардлагатай</span></div></div></div>
+    </div>
+    <div class="schol-panel" id="schol-ru">
+      <div class="schol-main"><div class="schol-flag">🇷🇺</div><div class="schol-name">Оросын Засгийн Газрын Тэтгэлэг</div><div class="schol-sub">Россотрудничество — Улсын Квотын Хөтөлбөр</div><p class="schol-desc">Оросын улсын квотын тэтгэлгийн хөтөлбөр нь жил бүр тэргүүний оросын их сургуулиудад хэдэн мянган бүрэн санхүүжилттэй суудал санал болгодог. Анагаах ухаан, инженерчлэл, урлаг, шинжлэх ухааны чиглэлүүд хамрагдана.</p><a href="https://forms.google.com" target="_blank" class="btn btn-primary">Mercury-р өргөдөл гаргах <svg class="arrow-icon" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+      <div class="schol-details"><div><div class="benefit-title">Үндсэн давуу талууд</div><div class="benefit-item"><div class="benefit-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#3ECFB2" stroke-width="1.5" stroke-linecap="round"/></svg></div><span>Бүх зэрэгт сургалтын төлбөрийг бүрэн хамардаг</span></div><div class="benefit-item"><div class="benefit-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#3ECFB2" stroke-width="1.5" stroke-linecap="round"/></svg></div><span>Сарын тэтгэмж болон дотуур байрны зардал</span></div><div class="benefit-item"><div class="benefit-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#3ECFB2" stroke-width="1.5" stroke-linecap="round"/></svg></div><span>Оросын хэлний нэг жилийн бэлтгэл сургалт</span></div></div><div><div class="benefit-title">Хэн өргөдөл гаргаж болох вэ?</div><div class="benefit-item"><div class="benefit-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#5B8DFF" stroke-width="1.5" stroke-linecap="round"/></svg></div><span>Тэтгэлэгт хамрагдах улс орнуудын иргэд</span></div><div class="benefit-item"><div class="benefit-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#5B8DFF" stroke-width="1.5" stroke-linecap="round"/></svg></div><span>Ихэнх хөтөлбөрт нас хязгаарлалт байхгүй</span></div><div class="benefit-item"><div class="benefit-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#5B8DFF" stroke-width="1.5" stroke-linecap="round"/></svg></div><span>Дундаж боловсролын диплом болон сайн хичээлийн дүн</span></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- MENTORS -->
+<section id="mentors" class="section alt-bg">
+  <div class="container">
+    <span class="label reveal">03 — Менторууд</span>
+    <div class="mentors-intro"><h2 class="section-title reveal reveal-delay-1">Туулсан Замын<br>Удирдагчид</h2><p class="reveal reveal-delay-2">Бидний менторууд зөвлөхүүд биш. Тэд одоо тэтгэлгийн оюутнаар амьдарч, туршлагаа дараагийн бүлэгт дамжуулахаар сонгосон идэвхтэй оюутнууд юм.</p></div>
+    <div class="mentors-grid">
+      <div class="mentor-card reveal"><div class="mentor-img" style="background:linear-gradient(135deg,#0D1235,#1a2266);"><div style="position:relative;z-index:1;font-size:36px;font-family:'Syne',sans-serif;font-weight:800;color:rgba(91,141,255,.35);">АК</div><div class="mentor-flag">🇨🇳</div></div><div class="mentor-body"><div class="mentor-name">Аиша К.</div><div class="mentor-uni">Пекины их сургууль · Бээжин</div><p class="mentor-bio">Олон улсын харилцааг судалж буй CSC тэтгэлэгч. CSC өргөдлийн мэдлэгийг бүхэлд нь өөрийн хүчээр эзэмшсэн — одоо бусдыг ижил алдаануудаас хамгаалж байна.</p><span class="mentor-tag">CSC Тэтгэлгийн Мэргэжилтэн</span></div></div>
+      <div class="mentor-card reveal reveal-delay-1"><div class="mentor-img" style="background:linear-gradient(135deg,#0D1235,#1a3366);"><div style="position:relative;z-index:1;font-size:36px;font-family:'Syne',sans-serif;font-weight:800;color:rgba(91,141,255,.35);">ЖЛ</div><div class="mentor-flag">🇰🇷</div></div><div class="mentor-body"><div class="mentor-name">Жасур Л.</div><div class="mentor-uni">KAIST · Тэжон</div><p class="mentor-bio">KAIST-д Компьютерийн шинжлэх ухаан судалж буй GKS тэтгэлэгч. TOPIK бэлтгэл болон GKS-ийн хоёр замын өргөдлийн системийг чиглүүлэх мэргэшилтэй.</p><span class="mentor-tag">GKS · TOPIK Мэргэжилтэн</span></div></div>
+      <div class="mentor-card reveal reveal-delay-2"><div class="mentor-img" style="background:linear-gradient(135deg,#0D1235,#2a1535);"><div style="position:relative;z-index:1;font-size:36px;font-family:'Syne',sans-serif;font-weight:800;color:rgba(255,107,74,.3);">НЮ</div><div class="mentor-flag">🇯🇵</div></div><div class="mentor-body"><div class="mentor-name">Нилуфар Ю.</div><div class="mentor-uni">Токиогийн их сургууль · Токио</div><p class="mentor-bio">Биомедицин инженерч судалж буй MEXT тэтгэлэгч. Японы элчин сайдын яамны зөвлөмжийн үйл явц болон судалгааны саналуудаар зааварчилдаг.</p><span class="mentor-tag">MEXT · Судалгааны Зам</span></div></div>
+      <div class="mentor-card reveal reveal-delay-3"><div class="mentor-img" style="background:linear-gradient(135deg,#0D1235,#0d2a20);"><div style="position:relative;z-index:1;font-size:36px;font-family:'Syne',sans-serif;font-weight:800;color:rgba(62,207,178,.3);">РМ</div><div class="mentor-flag">🇷🇺</div></div><div class="mentor-body"><div class="mentor-name">Рустам М.</div><div class="mentor-uni">МГИМО · Москва</div><p class="mentor-bio">МГИМО-д Хууль эрх зүй, Дипломат харилцааг судалж буй Оросын улсын квотын тэтгэлэгч. Россотрудничество өргөдөл болон ярилцлагад бэлтгэх мэргэжилтэн.</p><span class="mentor-tag">Оросын Квотын Мэргэжилтэн</span></div></div>
+    </div>
+    <div style="text-align:center;margin-top:48px;" class="reveal"><p style="font-size:15px;color:rgba(250,250,248,.45);margin-bottom:20px;">Яг таны нөхцөлд байсан ментортой холбогдохыг хүсэж байна уу?</p><a href="https://forms.google.com" target="_blank" class="btn btn-outline">Ментороо олох <svg class="arrow-icon" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section id="achievements" class="section">
+  <div class="container">
+    <div class="achieve-header-wrap">
+      <div>
+        <span class="label reveal">04 — Оюутнуудын Амжилт</span>
+        <h2 class="section-title reveal reveal-delay-1">Тэд<br>Хийж Чадсан</h2>
+      </div>
+      <p class="reveal reveal-delay-2">Манай хамт олноос гарсан бодит оюутнууд, тэдний бодит амжилт. Та бүгдийн дараагийн түүх нь энэ мөрөнд нэмэгдэж болно.</p>
+    </div>
+
+    <div class="achieve-top">
+      <div class="achieve-card cn reveal">
+        <div class="achieve-header"><div class="achieve-avatar" style="background:rgba(245,166,35,.15);color:var(--gold);">ЗА</div><div><div class="achieve-name">Зарина А.</div><div class="achieve-detail">Улаанбаатар → Шанхай, Хятад 🇨🇳</div></div></div>
+        <div class="achieve-quote">"Хаанаас эхлэхээ мэдэхгүй байсан. Mercury надад яг ижил CSC хөтөлбөрт хүсэлт гаргасан Аишатай холбосон. Хоёр сарын дотор бүрэн өргөдөлтэй болсон. Гурван сарын дараа зөвшөөрлийн захидал гарт байсан."</div>
+        <div class="achieve-result"><div class="achieve-result-icon">🎓</div><div class="achieve-result-text">CSC Тэтгэлэг — Фудань их сургууль — Бүрэн санхүүжилт</div></div>
+      </div>
+      <div class="achieve-card kr reveal reveal-delay-1">
+        <div class="achieve-header"><div class="achieve-avatar" style="background:rgba(91,141,255,.15);color:var(--electric);">БК</div><div><div class="achieve-name">Болд-Эрдэнэ К.</div><div class="achieve-detail">Дархан → Сеул, Солонгос 🇰🇷</div></div></div>
+        <div class="achieve-quote">"Ярилцлагын бэлтгэл надыг аварсан. GKS ярилцлагыг өмнө жил нь өгсөн ментортой 3 дадлага хийсэн. Бодит ярилцлагад ороход бүрэн бэлэн байсан."</div>
+        <div class="achieve-result"><div class="achieve-result-icon">🎓</div><div class="achieve-result-text">GKS Тэтгэлэг — Ёнсей их сургууль — Сеул</div></div>
+      </div>
+    </div>
+
+    <div class="achieve-grid">
+      <div class="achieve-card jp reveal">
+        <div class="achieve-header"><div class="achieve-avatar" style="background:rgba(255,107,74,.15);color:var(--coral);">МС</div><div><div class="achieve-name">Мадина С.</div><div class="achieve-detail">Улаанбаатар → Осака, Япон 🇯🇵</div></div></div>
+        <div class="achieve-quote">"Япон руу өргөдөл гаргахад MEXT-ийн талаар мэдээлэл бараг байгаагүй. Менторынхоо тусламжтайгаар элчин сайдын яамны зөвлөмжийн замыг ойлгож, ялгарсан судалгааны санал бичсэн."</div>
+        <div class="achieve-result"><div class="achieve-result-icon">🎓</div><div class="achieve-result-text">MEXT Тэтгэлэг — Осакагийн их сургууль</div></div>
+      </div>
+      <div class="achieve-card ru reveal reveal-delay-1">
+        <div class="achieve-header"><div class="achieve-avatar" style="background:rgba(62,207,178,.15);color:var(--mint);">ОД</div><div><div class="achieve-name">Одгэрэл Д.</div><div class="achieve-detail">Эрдэнэт → Москва, Орос 🇷🇺</div></div></div>
+        <div class="achieve-quote">"Анагаах ухаанд суралцахыг хэзээнээс мөрөөдсөн. Mercury намайг Москвад анагаах суралцаж буй ментортой холбосон — МГМУ-д суусны дараа бүх зардлыг тэтгэлэг хариуцсан."</div>
+        <div class="achieve-result"><div class="achieve-result-icon">🎓</div><div class="achieve-result-text">Оросын Квот — Сеченовын Анагаах Их Сургууль</div></div>
+      </div>
+      <div class="achieve-card cn reveal reveal-delay-2">
+        <div class="achieve-header"><div class="achieve-avatar" style="background:rgba(245,166,35,.12);color:var(--gold);">НТ</div><div><div class="achieve-name">Нарантуяа Т.</div><div class="achieve-detail">Улаанбаатар → Бээжин, Хятад 🇨🇳</div></div></div>
+        <div class="achieve-quote">"HSK шалгалтад тэнцэхэд бэлэн биш байсан. Mercury-ийн Orbit хөтөлбөр 3 сарын хугацаанд бэлтгэлийн ерөнхий төлөвлөгөөг боловсруулж өгсөн — HSK 5-д амжилттай тэнцсэн."</div>
+        <div class="achieve-result"><div class="achieve-result-icon">🎓</div><div class="achieve-result-text">CSC Тэтгэлэг — HSK 5 — Бээжингийн Хэл Шинжлэлийн ИС</div></div>
+      </div>
+    </div>
+
+    <!-- Cohort stats -->
+    <div class="cohort-band reveal" style="margin-top:2px;">
+      <div class="cohort-card" style="border-top:2px solid var(--gold);"><div class="cohort-year">2023 · Хаврын улирал</div><div class="cohort-num" style="color:var(--gold);">12</div><div class="cohort-desc">Тэтгэлэгт тэнцсэн. CSC болон GKS тэтгэлгүүд давамгайлсан.</div></div>
+      <div class="cohort-card" style="border-top:2px solid var(--electric);"><div class="cohort-year">2023 · Намрын улирал</div><div class="cohort-num" style="color:var(--electric);">28</div><div class="cohort-desc">Тэтгэлэгт тэнцсэн. Дөрвөн улс орноор хөтөлбөр тэлсэн.</div></div>
+      <div class="cohort-card" style="border-top:2px solid var(--mint);"><div class="cohort-year">2024 · Жилийн дундуур</div><div class="cohort-num" style="color:var(--mint);">67</div><div class="cohort-desc">Тэтгэлэгт тэнцсэн. Mercury-ийн хамгийн амжилттай жил.</div></div>
+      <div class="cohort-card" style="border-top:2px solid var(--coral);"><div class="cohort-year">2025 · Хаврын улирал</div><div class="cohort-num" style="color:var(--coral);">93+</div><div class="cohort-desc">Тэтгэлэгт тэнцсэн. Тоо нэмэгдсэн хэвээр байна.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAMS -->
+<section id="programs" class="section alt-bg">
+  <div class="container">
+    <div class="programs-header"><div><span class="label reveal">05 — Хөтөлбөрүүд</span><h2 class="section-title reveal reveal-delay-1">Mercury<br>Хөтөлбөрүүд</h2></div><p class="reveal reveal-delay-2">Хөтөлбөр бүр нь ментороор удирдуулсан, бүтэцтэй туршлага юм — таны тэтгэлгийн аялал нь яг сансарын нислэг шиг, шинэ ертөнцийг нэвтлэх эхлэл гэсэн санааг тусгасан.</p></div>
+    <div class="programs-grid">
+      <div class="program-card reveal"><div class="program-num">MC-01</div><div class="program-icon-wrap" style="background:rgba(91,141,255,.1);">🚀</div><div class="program-codename" style="color:var(--electric);">Launchpad · Тавцан</div><div class="program-name">Өргөдлийн Мэргэжил</div><p class="program-desc">Бүрэн, хүчтэй тэтгэлгийн өргөдлийг боловсруулж гаргах — баримт бичгүүдээс эхлээд эцсийн хугацаа хүртэл бүх алхамд дэмжлэг.</p><ul class="program-features"><li>Өргөдлийн жагсаалт, цаг хуваарь</li><li>Баримт бичиг бэлтгэх дэмжлэг</li><li>Улс орнуудаар өргөдлийн стратеги</li></ul></div>
+      <div class="program-card reveal reveal-delay-1"><div class="program-num">MC-02</div><div class="program-icon-wrap" style="background:rgba(245,166,35,.1);">🎯</div><div class="program-codename" style="color:var(--gold);">Vanguard · Манлайлагч</div><div class="program-name">Ярилцлагын Мастер</div><p class="program-desc">Яг ижил ярилцлагыг өгч тэнцсэн менторуудтай хамт хийх эрчимтэй дадлага — 4 улсын хөтөлбөрт зориулсан.</p><ul class="program-features"><li>Улс бүрийн асуулт хариултын бэлтгэл</li><li>3 бодит дадлага ярилцлага</li><li>Бие байдал, итгэлт байдлын сургалт</li></ul></div>
+      <div class="program-card reveal reveal-delay-2"><div class="program-num">MC-03</div><div class="program-icon-wrap" style="background:rgba(62,207,178,.1);">✍️</div><div class="program-codename" style="color:var(--mint);">Odyssey · Аялал</div><div class="program-name">Эссений Архитектор</div><p class="program-desc">Тэтгэлгийн хорооны юуг хайдгийг яг мэдэх менторуудын удирдлагаар хувийн мэдэгдэл боловсруулах.</p><ul class="program-features"><li>Түүхийн зураглал, бүтцийн загвар</li><li>3 дахин санал хүсэлт, засвар</li><li>Эцсийн редакц, бичиг засвар</li></ul></div>
+      <div class="program-card reveal reveal-delay-3"><div class="program-num">MC-04</div><div class="program-icon-wrap" style="background:rgba(255,107,74,.1);">🧭</div><div class="program-codename" style="color:var(--coral);">Constellation · Одны Бүлэг</div><div class="program-name">Стратегийн Зөвлөгөө</div><p class="program-desc">Таны профайлыг зөв тэтгэлэг, улс, их сургууль, мэргэжилтэй нийцүүлэх ганцаарчилсан стратегийн уулзалт.</p><ul class="program-features"><li>Профайлын хүчтэй талуудын дүн шинжилгээ</li><li>Улс орон, их сургуулийн тааруулалт</li><li>Хувийн зам зурагт бий болгох</li></ul></div>
+      <div class="program-card reveal reveal-delay-1"><div class="program-num">MC-05</div><div class="program-icon-wrap" style="background:rgba(91,141,255,.1);">📚</div><div class="program-codename" style="color:var(--electric);">Orbit · Тойрог</div><div class="program-name">Хэлний Бэлтгэл</div><p class="program-desc">HSK, TOPIK, JLPT, IELTS — тэтгэлэг бүрт шаардлагатай хэлний шалгалтад бэлтгэх тусгай хөтөлбөр.</p><ul class="program-features"><li>Шалгалт тус бүрийн судалгааны төлөвлөгөө</li><li>Дадлага материал, дуурайлган шалгалт</li><li>Долоо хоногийн шалгалтын уулзалт</li></ul></div>
+      <div class="program-card reveal reveal-delay-2"><div class="program-num">MC-06</div><div class="program-icon-wrap" style="background:rgba(245,166,35,.1);">🌏</div><div class="program-codename" style="color:var(--gold);">Atlas · Дэлхийн Зураг</div><div class="program-name">Очих Газрын Хөтөч</div><p class="program-desc">Хаашаа очихоо шийдэж чадахгүй байна уу? Atlas танд улс бүрийн менторуудтай холбож, ирээдүйгээ хаана барих вэ гэдгийг мэдрэмжийн үндэслэлтэй шийдүүлдэг.</p><ul class="program-features"><li>Улс бүрийн амьдрал — шууд мэдрэмж</li><li>Их сургуулийн соёл, кампусын ойлголт</li><li>Мэргэжил сонгох зөвлөгөө</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- APPLY -->
+<section id="apply" class="section">
+  <div class="apply-bg"></div>
+  <div class="container">
+    <div class="apply-inner">
+      <span class="label reveal">06 — Өргөдөл гаргах</span>
+      <h2 class="apply-title reveal reveal-delay-1">Хөөрөхөд<br><span>Бэлэн үү?</span></h2>
+      <p class="apply-sub reveal reveal-delay-2">Өргөдөл гаргахад 5 минутаас бага хугацаа шаардлагатай. Mercury ментор 48 цагийн дотор таны дараагийн алхамуудыг чиглүүлэхээр холбогдоно.</p>
+      <div class="apply-actions reveal reveal-delay-3">
+        <a href="https://forms.google.com" target="_blank" class="btn btn-gold" style="font-size:15px;padding:18px 36px;">Одоо бүртгүүлэх — Үнэгүй <svg class="arrow-icon" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <a href="https://forms.google.com" target="_blank" class="btn btn-outline" style="font-size:15px;padding:18px 36px;">Үнэгүй зөвлөгөө авах</a>
+      </div>
+      <p class="apply-note reveal reveal-delay-4">Төлбөр байхгүй. Үүрэг хариуцлага байхгүй. Зөвхөн таны зорилгот хүрэх чиглэл.</p>
+      <div class="apply-steps reveal reveal-delay-2" style="margin-top:72px;">
+        <div class="apply-step"><div class="step-num">1</div><div class="step-label">Өргөдлийн маягт бөглөх</div></div>
+        <div class="apply-step"><div class="step-num">2</div><div class="step-label">Ментортой тааруулах</div></div>
+        <div class="apply-step"><div class="step-num">3</div><div class="step-label">Стратеги боловсруулах</div></div>
+        <div class="apply-step"><div class="step-num">4</div><div class="step-label">Өргөдлөө илгээх</div></div>
+        <div class="apply-step"><div class="step-num">5</div><div class="step-label">Тэтгэлгээ хүлээн авах</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMMUNITY -->
+<section id="community" class="section alt-bg">
+  <div class="container">
+    <div class="testimonials-header"><span class="label reveal">07 — Хамт олон</span><h2 class="section-title reveal reveal-delay-1">Хийж Чадсан<br>Оюутнууд</h2><p class="reveal reveal-delay-2">Бодит үр дүн. Бодит хүмүүс. Тэдний түүх таных байж болно.</p></div>
+    <div class="testi-grid">
+      <div class="testi-card reveal"><div class="testi-quote-mark">"</div><p class="testi-text">Хаанаас эхлэхээ огт мэдэхгүй байсан. Mercury надыг яг ижил CSC хөтөлбөрт өргөдөл гаргасан Аишатай холбосон. Хоёр сарын дотор бүрэн өргөдөлтэй болсон. Гурван сарын дараа зөвшөөрлийн захидал гарт байсан.</p><div class="testi-author"><div class="testi-avatar" style="background:#F5A623;color:#1A0E00;">ЗА</div><div><div class="testi-name">Зарина А.</div><div class="testi-detail">Одоо Фудань их сургуульд суралцаж байна</div></div></div><div class="testi-outcome">🎓 CSC Тэтгэлэг — Бүрэн сургалтын төлбөр + тэтгэмж</div></div>
+      <div class="testi-card reveal reveal-delay-1"><div class="testi-quote-mark">"</div><p class="testi-text">Ярилцлагын бэлтгэл надыг аварсан. Өмнөх жил GKS ярилцлага өгч тэнцсэн ментортой 3 дадлага хийсэн. Бодит ярилцлагад ороход бүрэн бэлэн, итгэлтэй байсан.</p><div class="testi-author"><div class="testi-avatar" style="background:#3ECFB2;color:#0A3430;">БК</div><div><div class="testi-name">Болд-Эрдэнэ К.</div><div class="testi-detail">Одоо Ёнсей их сургуульд суралцаж байна</div></div></div><div class="testi-outcome">🎓 GKS Тэтгэлэг — Сеул, Солонгос</div></div>
+      <div class="testi-card reveal reveal-delay-2"><div class="testi-quote-mark">"</div><p class="testi-text">Япон руу өргөдөл гаргахад MEXT-ийн талаар мэдээлэл бараг байгаагүй. Mercury ментор надад элчин сайдын яамны зөвлөмжийн замыг ойлгуулж, бодит судалгааны санал бичихэд туслав.</p><div class="testi-author"><div class="testi-avatar" style="background:#FF6B4A;color:white;">МС</div><div><div class="testi-name">Мадина С.</div><div class="testi-detail">Одоо Осакагийн их сургуульд суралцаж байна</div></div></div><div class="testi-outcome">🎓 MEXT Тэтгэлэг — Бүрэн санхүүжилт</div></div>
+    </div>
+    <div class="stats-band reveal" style="margin-top:2px;">
+      <div class="stat-col"><div class="stat-big" style="color:var(--electric);">200+</div><div class="stat-label">Менторлосон оюутан</div></div>
+      <div class="stat-col"><div class="stat-big" style="color:var(--gold);">94%</div><div class="stat-label">Тэтгэлгийн амжилтын хувь</div></div>
+      <div class="stat-col"><div class="stat-big" style="color:var(--mint);">4</div><div class="stat-label">Хамрагдсан улс орон</div></div>
+      <div class="stat-col"><div class="stat-big" style="color:var(--coral);">Үнэгүй</div><div class="stat-label">Хамт олонд нэгдэх</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand-logo"><svg width="26" height="26" viewBox="0 0 26 26" fill="none"><circle cx="13" cy="13" r="12" stroke="#5B8DFF" stroke-width="1.2" fill="none" opacity="0.35"/><circle cx="13" cy="13" r="7.5" stroke="#5B8DFF" stroke-width="1.2" fill="none" opacity="0.6"/><circle cx="13" cy="13" r="3" fill="#5B8DFF"/><circle cx="22.5" cy="7" r="1.8" fill="#F5A623"/></svg> Mercury Community</div>
+        <p class="footer-brand-desc">Засгийн газрын тэтгэлгээр гадаадад суралцаж буй оюутнуудтай ирээдүйн мөрөөдөгчдийг холбодог менторлах сүлжээ.</p>
+        <div class="social-links">
+          <a href="https://instagram.com" target="_blank" class="social-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".5" fill="currentColor"/></svg></a>
+          <a href="https://t.me" target="_blank" class="social-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 3L3 10.5l7 1L12 19l3-5 6-11z"/><path d="M10 11.5l8-6"/></svg></a>
+          <a href="mailto:info@mercury.community" class="social-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 8 10-8"/></svg></a>
+        </div>
+      </div>
+      <div class="footer-col"><h5>Хөтөлбөрүүд</h5><ul><li><a href="#programs">Launchpad — Өргөдөл</a></li><li><a href="#programs">Vanguard — Ярилцлага</a></li><li><a href="#programs">Odyssey — Эссе</a></li><li><a href="#programs">Orbit — Хэлний бэлтгэл</a></li><li><a href="#programs">Atlas — Зөвлөгөө</a></li></ul></div>
+      <div class="footer-col"><h5>Тэтгэлгүүд</h5><ul><li><a href="#scholarships">Хятадын засгийн газрын (CSC)</a></li><li><a href="#scholarships">Солонгосын засгийн газрын (GKS)</a></li><li><a href="#scholarships">Японы засгийн газрын (MEXT)</a></li><li><a href="#scholarships">Оросын улсын квот</a></li></ul></div>
+      <div class="footer-col"><h5>Хамт олон</h5><ul><li><a href="#mentors">Менторуудтай танилцах</a></li><li><a href="#achievements">Оюутнуудын амжилт</a></li><li><a href="#community">Гэрчлэлүүд</a></li><li><a href="#apply">Одоо бүртгүүлэх</a></li><li><a href="mailto:info@mercury.community">Холбоо барих</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><p>© 2025 Mercury Community. Бүх эрх хуулиар хамгаалагдсан.</p><p>Дэлхийг зорьсон бүх оюутанд зориулж бүтээгдсэн.</p></div>
+  </div>
+</footer>
+
+<script>
+const dot=document.getElementById('cursorDot');
+document.addEventListener('mousemove',e=>{dot.style.left=e.clientX+'px';dot.style.top=e.clientY+'px';});
+document.addEventListener('mouseleave',()=>dot.style.opacity='0');
+document.addEventListener('mouseenter',()=>dot.style.opacity='1');
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+function switchSchol(btn,id){document.querySelectorAll('.schol-tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.schol-panel').forEach(p=>p.classList.remove('active'));btn.classList.add('active');document.getElementById('schol-'+id).classList.add('active');}
+let navOpen=false;
+function toggleMN(){navOpen=!navOpen;document.getElementById('mobileNav').classList.toggle('open',navOpen);const s=document.querySelectorAll('.hamburger span');if(navOpen){s[0].style.transform='rotate(45deg) translate(4px,5px)';s[1].style.opacity='0';s[2].style.transform='rotate(-45deg) translate(4px,-5px)';}else{s.forEach(x=>{x.style.transform='';x.style.opacity='';});}}
+function closeMN(){navOpen=false;document.getElementById('mobileNav').classList.remove('open');document.querySelectorAll('.hamburger span').forEach(s=>{s.style.transform='';s.style.opacity='';});}
+window.addEventListener('scroll',()=>{let cur='';document.querySelectorAll('section[id]').forEach(s=>{if(window.scrollY>=s.offsetTop-120)cur=s.id;});document.querySelectorAll('.nav-links a').forEach(a=>{a.style.color=a.getAttribute('href')==='#'+cur?'var(--white)':'';});});
+</script>
+</body>
+</html>
